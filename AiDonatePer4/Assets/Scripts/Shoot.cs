@@ -37,7 +37,7 @@ public class Shoot : MonoBehaviour
        
      
         Vector3 direction = (target.transform.position - parent.transform.position).normalized;
-        Quaternion lookRotaion = Quaternion.lookRotaion(new Vector3(direction.x, 0, direction.z));
+        Quaternion lookRotaion = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         parent.transform.rotation = Quaternion.Slerp(parent.transform.rotation, lookRotaion, Time.deltaTime * turnSpeed);
 
         float? angle = RotateTurret();
@@ -52,7 +52,7 @@ public class Shoot : MonoBehaviour
         {
             this.transform.localEulerAngles = new Vector3(360f - (float)angle, 0f,0f);
         }
-        return angle;
+        return (float)angle;
     }
     float? CalculateAngle(bool low)
     {
@@ -65,7 +65,7 @@ public class Shoot : MonoBehaviour
         float underTheSqeRot = (sSqr * sSqr) - gravity * (gravity * x *x +2 * y * sSqr);
         if (underTheSqeRot >= 0f)
         { 
-            float root = (Mathf.sSqr(underTheSqeRot));
+            float root = Mathf.Sqrt(underTheSqeRot);
             float highAngle = sSqr + root;
             float lowAngle = sSqr - root;
 
